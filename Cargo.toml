@@ -1,0 +1,14 @@
+[package]
+name = "stdweb_async"
+version = "0.1.0"
+authors = ["Yuji Ichikawa <ichikawa.yuji@gmail.com>"]
+
+[dependencies]
+futures-await = "*"
+
+[dependencies.stdweb]
+version = "*"
+features = ["experimental_features_which_may_break_on_minor_version_bumps"]
+
+[lib]
+crate-type = ["cdylib"]
