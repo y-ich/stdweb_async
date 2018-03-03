@@ -11,13 +11,12 @@ use stdweb::unstable::TryInto;
 
 /// rust_async should return a Promise that returns a retun value of a Promise of js_async defined in main.js.
 #[js_export]
-#[async]
-fn rust_async() -> Result<i32, stdweb::error::Error> {
-    let future: PromiseFuture<SomeType> = js!( return await js_async(); ).try_into().unwrap();
+fn rust_async() {
+    let future: PromiseFuture<i32> = js!( return js_async(); ).try_into().unwrap();
     PromiseFuture::spawn(
         future
             .map(|value| {
-                // I want to return variable value to JS as Promise.
+                js!(resolve(@{value}));
             })
             .map_err(|e| console!(error, e)),
     );

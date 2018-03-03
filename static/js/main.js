@@ -11,6 +11,11 @@ async function js_async() {
     return 1;
 }
 
-Rust.stdweb_async.then(async function(stdweb_async) {
-    console.log(await stdweb_async.rust_async());
+Rust.stdweb_async.then(function(stdweb_async) {
+    return new Promise(function(res, rej) {
+        window.resolve = res;
+        stdweb_async.rust_async();
+    });
+}).then(function(value) {
+    console.log(value);
 });
